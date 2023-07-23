@@ -1,25 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import InfoBar from './InfoBar';
+import {connect} from "react-redux"
+import { isplataSRacuna, uplataNaRacun, resetRacuna } from './counterActions';
 
-function App() {
+function App({data, uplatiOerich, isplatiOerich, resetOericha}) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <InfoBar/>
+      <div className='c-actions'>
+        <div className='c-btn-minus' onClick={isplatiOerich}>
+          <span className='action-label'>Smanji</span>
+        </div>
+        {data.eurichy}
+        <div className='c-btn-plus' onClick={uplatiOerich}>
+          <span className='action-label'>Povecaj</span>
+        </div>
+      </div>
+      <button onClick={resetOericha}>Reset</button>
     </div>
   );
 }
 
-export default App;
+function mapStateToProps(state){
+  return{
+    data: state
+  }
+}
+
+const mapDispatchToProps = {
+  uplatiOerich: () => uplataNaRacun(),
+  isplatiOerich: () => isplataSRacuna(),
+  resetOericha: () => resetRacuna()
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
